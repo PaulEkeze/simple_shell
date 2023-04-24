@@ -6,6 +6,10 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-int shell01(void);
+int shell01(char *shpath);
+int execprg(char *path, char *shpath);
+char *prompt(void);
+
+extern char **environ;
 
 #endif
