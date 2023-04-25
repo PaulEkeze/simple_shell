@@ -10,38 +10,35 @@
 
 int shell01(char *shpath)
 {
-	char *path;
+	char *cmd;
 	size_t len = 0;
 
-	/* check if the stdinp on the terminal*/
 	if (isatty(0) == 1)
 	{
-	/* include all interacitve mode functionality */
 		while (1)
 		{
-			path = prompt();
-			if (path == NULL)
+			cmd = prompt();
+			if (cmd == NULL)
 			{
 				return (1);
 			}
-			else if (path[0] == '\n')
+			else if (cmd[0] == '\n')
 			{
 				continue;
 			}
-			execprg(path, shpath);
+			execprg(cmd, shpath);
 		}
 	}
 	else
 	{
-	/* include all non interactive functinality */
-		len = getline(&path, &len, stdin); /* non-interacitve */
+		len = getline(&cmd, &len, stdin);
 		if (len == 1)
 		{
 			return (1);
 		}
-		execprg(path, shpath);
+		execprg(cmd, shpath);
 	}
-	free(path);
+	free(cmd);
 
 	return (0);
 }
