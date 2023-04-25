@@ -2,33 +2,32 @@
 
 /**
  * execprg - executes a program by its path
- * @path: program path string
+ * @cmd: command string
  * @shpath: the shell path
  *
  * Return: 0 on success
  * -1 on error
  */
 
-int execprg(char *path, char *shpath)
+int execprg(char *cmd, char *shpath)
 {
 	struct stat sb;
-	char *argv[] = {NULL, NULL};
+	char **argv;
 	pid_t child_p;
 	int status, i = 0;
 
-	while (path[i])
+	while (cmd[i])
 	{
-		if (path[i] == '\n')
-			path[i] = '\0';
+		if (cmd[i] == '\n')
+			cmd[i] = '\0';
 		i++;
 	}
-
-	if (stat(path, &sb) == -1)
+	argv = getargs(cmd);
+	if (stat(argv[0], &sb) == -1)
 	{
 		perror(shpath);
 		return (-1);
 	}
-	argv[0] = path;
 
 	child_p = fork();
 	if (child_p == -1)
@@ -39,7 +38,7 @@ int execprg(char *path, char *shpath)
 
 	if (child_p == 0)
 	{
-		execve(path, argv, environ);
+		execve(argv[0], argv, environ);
 	}
 	else
 	{
