@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * shell01 - executes a program without arguments
+ * shell - executes a program without arguments
  * @shpath: the shell path
  *
  * Return: 0 on success
  * 1 on error
  */
 
-int shell01(char *shpath)
+int shell(char *shpath)
 {
 	char *cmd;
 	size_t len = 0;
@@ -27,6 +27,7 @@ int shell01(char *shpath)
 				continue;
 			}
 			execprg(cmd, shpath);
+			free(cmd);
 		}
 	}
 	else
@@ -37,8 +38,7 @@ int shell01(char *shpath)
 			return (1);
 		}
 		execprg(cmd, shpath);
+		free(cmd);
 	}
-	free(cmd);
-
 	return (0);
 }
