@@ -23,27 +23,32 @@ int execprg(char *cmd, char *shpath)
 		i++;
 	}
 	argv = getargs(cmd);
-	if (stat(argv[0], &sb) == -1)
+	if (*argv[0] == '/')
 	{
-		perror(shpath);
-		return (-1);
+		if (stat(argv[0], &sb) == -1)
+		{
+			perror(shpath);
+			return (-1);
+		}
 	}
-
+	else
+	{
+		argv[0] = checkpath(cmd);
+		if (argv[0] == NULL)
+		{
+			perror(shpath);
+			return (-1);
+		}
+	}
 	child_p = fork();
 	if (child_p == -1)
 	{
 		perror("fork");
 		return (-1);
 	}
-
 	if (child_p == 0)
-	{
 		execve(argv[0], argv, environ);
-	}
 	else
-	{
 		wait(&status);
-	}
-
 	return (0);
 }
