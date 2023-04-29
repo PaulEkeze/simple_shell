@@ -1,12 +1,14 @@
 #include "shell.h"
 
 /**
- * main - entry point to the shell
+ * main - testing the code
+ * @argc: arguments count
+ * @argv: arguments values
  *
- * Return: 0
+ * Return: 0 always
  */
 
-int main( __attribute__ ((unused))int argc, char *argv[])
+int main(__attribute__ ((unused))int argc, char *argv[])
 {
 
 	shell(argv[0]);

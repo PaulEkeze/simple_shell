@@ -12,6 +12,7 @@ char *prompt(void);
 int execprg(char *path, char *shpath);
 char **getargs(char *cmd);
 char *checkpath(char *cmd);
+int isexit(char *cmd);
 
 extern char **environ;
 

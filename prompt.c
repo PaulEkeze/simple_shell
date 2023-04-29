@@ -26,5 +26,9 @@ char *prompt(void)
 		write(1, "\n", 1);
 		return (NULL);
 	}
+	else if (line[linelen - 1] == '\n')
+	{
+		line[linelen - 1] = '\0';
+	}
 	return (line);
 }

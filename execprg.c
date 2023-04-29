@@ -14,14 +14,8 @@ int execprg(char *cmd, char *shpath)
 	struct stat sb;
 	char **argv;
 	pid_t child_p;
-	int status, i = 0;
+	int status;
 
-	while (cmd[i])
-	{
-		if (cmd[i] == '\n')
-			cmd[i] = '\0';
-		i++;
-	}
 	argv = getargs(cmd);
 	if (*argv[0] == '/')
 	{
