@@ -22,6 +22,10 @@ int shell(char *shpath)
 			{
 				return (1);
 			}
+			else if (isexit(cmd))
+			{
+				break;
+			}
 			else if (cmd[0] == '\n')
 			{
 				continue;
@@ -34,9 +38,11 @@ int shell(char *shpath)
 	{
 		len = getline(&cmd, &len, stdin);
 		if (len == 1)
-		{
 			return (1);
-		}
+		else if (cmd[len - 1] == '\n')
+			cmd[len - 1] = '\0';
+		if (isexit(cmd))
+			return (0);
 		execprg(cmd, shpath);
 		free(cmd);
 	}
